@@ -46,6 +46,30 @@ once built, the Makefile will then run each of them.
 Example: BeagleBone Black
 -------------------------
 
+This run was perfromed on a [http://beagleboard.org/Products/BeagleBone%20Black](BeagleBone Black).
+
+```
+$ make -i
+cc test.c -mfloat-abi=hard -O9 -std=c99 -march=armv7-a -mfpu=neon -o hard
+cc test.c -mfloat-abi=soft -O9 -std=c99 -march=armv7-a -mfpu=neon -o soft
+cc test.c -mfloat-abi=softfp -O9 -std=c99 -march=armv7-a -mfpu=vfpv3-d16 -o softfp-vfp
+cc test.c -mfloat-abi=softfp -O9 -std=c99 -march=armv7-a -mfpu=neon -o softfp-neon
+./soft 2.200002 2.200001 5
+ans = 9.705820 1765 loop/msec
+./softfp-vfp 2.200002 2.200001 5
+ans = 9.705820 13776 loop/msec
+./softfp-neon 2.200002 2.200001 5
+ans = 9.705820 13771 loop/msec
+./hard 2.200002 2.200001 5
+ans = 9.705820 13767 loop/msec
+./default 2.200002 2.200001 5
+ans = 9.705820 13782 loop/msec
+```
+
+As you can see, all of the variations built and the *soft* version was
+slow (not surprising), whlie all the others were quite fast.  The
+difference is roughly a factor of 8.
+
 Example: Gumstix SandSTORM COM
 ------------------------------
 

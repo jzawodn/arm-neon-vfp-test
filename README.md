@@ -51,6 +51,12 @@ Example: BeagleBone Black
 Example: Gumstix SandSTORM COM
 ------------------------------
 
+This run was performed on a [https://www.gumstix.com/store/product_info.php?products_id=279](Gumstix SandSTORM COM).
+
+As you can see, the ARM processor on the SandSTORM doesn't have hard
+floating point support, so that compilation fails.  But the other four
+work.
+
 ```
 $ make -i
 cc test.c -mfloat-abi=hard -O9 -std=c99 -march=armv7-a -mfpu=neon -o hard
@@ -74,3 +80,6 @@ make: [all] Error 127 (ignored)
 ans = 9.705820 1373 loop/msec
 ```
 
+Interestingly, the timing for the *softfp-vfp* and *softfp-neon* are
+essentially identical.  Similarly, the timing for *default* and *soft*
+are the same.

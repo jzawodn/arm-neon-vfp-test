@@ -51,10 +51,6 @@ Example: Gumstix SandSTORM COM
 
 This run was performed on a [https://www.gumstix.com/store/product_info.php?products_id=279](Gumstix SandSTORM COM).
 
-As you can see, the ARM processor on the SandSTORM doesn't have hard
-floating point support, so that compilation fails.  But the other four
-work.
-
 ```
 $ make -i
 cc test.c -mfloat-abi=hard -O9 -std=c99 -march=armv7-a -mfpu=neon -o hard
@@ -77,6 +73,9 @@ make: [all] Error 127 (ignored)
 ./default 2.200002 2.200001 5
 ans = 9.705820 1373 loop/msec
 ```
+As you can see, the ARM processor on the SandSTORM doesn't have hard
+floating point support, so that compilation fails.  But the other four
+work.
 
 Interestingly, the timing for the *softfp-vfp* and *softfp-neon* are
 essentially identical.  Similarly, the timing for *default* and *soft*
@@ -86,10 +85,6 @@ Example: Raspberry PI
 ---------------------
 
 This run was performed on a first generation [http://www.raspberrypi.org/](Raspberry PI).
-
-As you can see, the PI is setup for hardware floating point, so only the
-*default* and *hard* binaries built.  However, both failed to run and
-generated an **Illegal instruction** exception.
 
 ```
 $ make -i
@@ -124,3 +119,7 @@ make: *** [all] Illegal instruction
 ./default 2.200002 2.200001 5
 make: *** [all] Illegal instruction
 ```
+As you can see, the PI is setup for hardware floating point, so only the
+*default* and *hard* binaries built.  However, both failed to run and
+generated an **Illegal instruction** exception.
+

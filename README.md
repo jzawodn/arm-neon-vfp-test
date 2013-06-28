@@ -42,8 +42,6 @@ flags:
 On most platforms you won't be able to build all of them.  In any case,
 once built, the Makefile will then run each of them.
 
-Example: Raspberry PI
----------------------
 
 Example: BeagleBone Black
 -------------------------
@@ -83,3 +81,46 @@ ans = 9.705820 1373 loop/msec
 Interestingly, the timing for the *softfp-vfp* and *softfp-neon* are
 essentially identical.  Similarly, the timing for *default* and *soft*
 are the same.
+
+Example: Raspberry PI
+---------------------
+
+This run was performed on a first generation [http://www.raspberrypi.org/](Raspberry PI).
+
+As you can see, the PI is setup for hardware floating point, so only the
+*default* and *hard* binaries built.  However, both failed to run and
+generated an **Illegal instruction** exception.
+
+```
+$ make -i
+cc test.c -mfloat-abi=hard -O9 -std=c99 -march=armv7-a -mfpu=neon -o hard
+cc test.c -mfloat-abi=soft -O9 -std=c99 -march=armv7-a -mfpu=neon -o soft
+/usr/bin/ld: error: soft uses VFP register arguments, /tmp/ccrhwWtN.o does not
+/usr/bin/ld: failed to merge target specific data of file /tmp/ccrhwWtN.o
+collect2: ld returned 1 exit status
+make: [soft] Error 1 (ignored)
+cc test.c -mfloat-abi=softfp -O9 -std=c99 -march=armv7-a -mfpu=vfpv3-d16 -o softfp-vfp
+/usr/bin/ld: error: softfp-vfp uses VFP register arguments, /tmp/ccguM7sh.o does not
+/usr/bin/ld: failed to merge target specific data of file /tmp/ccguM7sh.o
+collect2: ld returned 1 exit status
+make: [softfp-vfp] Error 1 (ignored)
+cc test.c -mfloat-abi=softfp -O9 -std=c99 -march=armv7-a -mfpu=neon -o softfp-neon
+/usr/bin/ld: error: softfp-neon uses VFP register arguments, /tmp/cc378hRF.o does not
+/usr/bin/ld: failed to merge target specific data of file /tmp/cc378hRF.o
+collect2: ld returned 1 exit status
+make: [softfp-neon] Error 1 (ignored)
+cc test.c -O9 -std=c99 -march=armv7-a -o default
+./soft 2.200002 2.200001 5
+make: ./soft: Command not found
+make: [all] Error 127 (ignored)
+./softfp-vfp 2.200002 2.200001 5
+make: ./softfp-vfp: Command not found
+make: [all] Error 127 (ignored)
+./softfp-neon 2.200002 2.200001 5
+make: ./softfp-neon: Command not found
+make: [all] Error 127 (ignored)
+./hard 2.200002 2.200001 5
+make: *** [all] Illegal instruction
+./default 2.200002 2.200001 5
+make: *** [all] Illegal instruction
+```

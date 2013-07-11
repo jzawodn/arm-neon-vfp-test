@@ -28,7 +28,7 @@ and the test program emits the second line.
 Usage
 -----
 
-On an ARM system with a C compile and standard toolchain, you can just
+On an ARM system with a C compiler and standard toolchain, you can just
 type `make -i` and it'll compile and run.  It will attempt to build the
 same code as 5 different binaries that differ only in their compile-time
 flags:
@@ -45,6 +45,8 @@ once built, the Makefile will then run each of them.
 
 Example: BeagleBone Black
 -------------------------
+
+(test)[http://google.com]
 
 This run was perfromed on a [http://beagleboard.org/Products/BeagleBone%20Black](BeagleBone Black).
 

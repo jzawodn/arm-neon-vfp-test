@@ -46,9 +46,8 @@ once built, the Makefile will then run each of them.
 Example: BeagleBone Black
 -------------------------
 
-(test)[http://google.com]
 
-This run was perfromed on a [http://beagleboard.org/Products/BeagleBone%20Black](BeagleBone Black).
+This run was perfromed on a [BeagleBone black](http://beagleboard.org/Products/BeagleBone%20Black)
 
 ```
 $ make -i
@@ -75,7 +74,7 @@ difference is roughly a factor of 8.
 Example: Gumstix SandSTORM COM
 ------------------------------
 
-This run was performed on a [https://www.gumstix.com/store/product_info.php?products_id=279](Gumstix SandSTORM COM).
+This run was performed on a [Gumtsix SandSTORM COM](https://www.gumstix.com/store/product_info.php?products_id=279)
 
 ```
 $ make -i
@@ -110,7 +109,7 @@ are the same.
 Example: Raspberry PI
 ---------------------
 
-This run was performed on a first generation [http://www.raspberrypi.org/](Raspberry PI).
+This run was performed on a first generation [Raspberry PI](http://www.raspberrypi.org/)
 
 ```
 $ make -i
